@@ -1,0 +1,106 @@
+/* BoardCard — Pinterest-style tile: borderless, image-driven height, hover actions */
+
+.board-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%; /* fill the grid cell defined by grid-row span */
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.board-card__media {
+  position: relative;
+  flex: 1; /* grow to fill the card, leaving room for the caption */
+  line-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Image covers the media area so the card height is driven by the grid span,
+   not the image's natural aspect ratio — this removes the empty space. */
+.board-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Greyed-out overlay sits on top of the image, hidden until hover. */
+.board-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 12px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.board-card:hover .board-card__overlay,
+.board-card:focus-within .board-card__overlay {
+  opacity: 1;
+}
+
+.board-card__delete,
+.board-card__view {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+/* "Delete" sits top-right, like Pinterest's secondary action. */
+.board-card__delete {
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.9);
+  color: #b00020;
+}
+
+.board-card__delete:hover {
+  background: #fff;
+  transform: scale(1.04);
+}
+
+/* "View Board" is the primary action, bottom-right. */
+.board-card__view {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+}
+
+.board-card__view:hover {
+  filter: brightness(1.08);
+  transform: scale(1.04);
+}
+
+/* Title + category, borderless, just below the image like Pinterest captions. */
+.board-card__caption {
+  padding: 8px 4px 0;
+  text-align: left;
+}
+
+.board-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-h);
+}
+
+.board-card__category {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--text);
+}

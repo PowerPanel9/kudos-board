@@ -1,0 +1,92 @@
+/* BoardGrid — Pinterest/collage masonry layout.
+   Cards are given fixed heights via grid-row spans over a small base row,
+   so shorter cards don't leave empty space beneath them. The image fills
+   each card with object-fit: cover (handled in BoardCard.css). */
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 50px; /* small base row height for flexibility */
+  gap: 16px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Asymmetrical sizes — repeating pattern of row spans for a collage feel. */
+.board-grid > :nth-child(6n + 1) {
+  grid-row: span 8; /* tall card */
+}
+.board-grid > :nth-child(6n + 2) {
+  grid-row: span 6; /* medium card */
+}
+.board-grid > :nth-child(6n + 3) {
+  grid-row: span 7; /* medium-tall card */
+}
+.board-grid > :nth-child(6n + 4) {
+  grid-row: span 5; /* short card */
+}
+.board-grid > :nth-child(6n + 5) {
+  grid-row: span 9; /* extra-tall card */
+}
+.board-grid > :nth-child(6n + 6) {
+  grid-row: span 6; /* medium card */
+}
+
+/* Tablet: always 5 columns. */
+@media (max-width: 1024px) {
+  .board-grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 40px;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .board-grid > :nth-child(6n + 1) {
+    grid-row: span 7;
+  }
+  .board-grid > :nth-child(6n + 2) {
+    grid-row: span 5;
+  }
+  .board-grid > :nth-child(6n + 3) {
+    grid-row: span 6;
+  }
+  .board-grid > :nth-child(6n + 4) {
+    grid-row: span 5;
+  }
+  .board-grid > :nth-child(6n + 5) {
+    grid-row: span 8;
+  }
+  .board-grid > :nth-child(6n + 6) {
+    grid-row: span 6;
+  }
+}
+
+/* Phone: always 2 columns, simpler 4-step pattern. */
+@media (max-width: 480px) {
+  .board-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 35px;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .board-grid > :nth-child(4n + 1) {
+    grid-row: span 6;
+  }
+  .board-grid > :nth-child(4n + 2) {
+    grid-row: span 5;
+  }
+  .board-grid > :nth-child(4n + 3) {
+    grid-row: span 7;
+  }
+  .board-grid > :nth-child(4n + 4) {
+    grid-row: span 5;
+  }
+}
+
+.board-grid__empty {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--text);
+}

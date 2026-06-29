@@ -1,121 +1,84 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { BrowserRouter, Routes, Route, useParams, Link } from 'react-router-dom'
+import BoardGrid from '../board-components/BoardGrid'
+import CreateBoardForm from '../board-components/CreateBoardForm'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+// --- Mock data: varied image heights to show the Pinterest masonry effect ---
+const INITIAL_BOARDS = [
+  { id: 1, title: 'Team Wins', category: 'Celebration', author: 'John', imageUrl: 'https://picsum.photos/id/1015/400/600' },
+  { id: 2, title: 'Thanks Crew', category: 'Thank You', author: 'Jane', imageUrl: 'https://picsum.photos/id/1025/400/300' },
+  { id: 3, title: 'Stay Inspired', category: 'Inspiration', author: 'Sam', imageUrl: 'https://picsum.photos/id/1035/400/500' },
+  { id: 4, title: 'Q3 Launch', category: 'Celebration', author: 'Lee', imageUrl: 'https://picsum.photos/id/1040/400/250' },
+  { id: 5, title: 'Mentor Love', category: 'Thank You', author: 'Pat', imageUrl: 'https://picsum.photos/id/1050/400/650' },
+  { id: 6, title: 'Big Dreams', category: 'Inspiration', author: 'Kim', imageUrl: 'https://picsum.photos/id/1060/400/400' },
+  { id: 7, title: 'Shipped It', category: 'Celebration', author: 'Ana', imageUrl: 'https://picsum.photos/id/1062/400/550' },
+  { id: 8, title: 'Kudos All', category: 'Thank You', author: 'Max', imageUrl: 'https://picsum.photos/id/1074/400/350' },
+]
+
+function HomePage() {
+  const [boards, setBoards] = useState(INITIAL_BOARDS)
+  const [showForm, setShowForm] = useState(false)
+
+  const handleDelete = async (id) => {
+    setBoards((prev) => prev.filter((b) => b.id !== id))
+  }
+
+  const handleCreate = async (data) => {
+    const newBoard = {
+      id: Math.max(0, ...boards.map((b) => b.id)) + 1,
+      ...data,
+      // fall back to a random image if none provided
+      imageUrl: data.imageUrl || `https://picsum.photos/400/${400 + (boards.length % 3) * 100}`,
+    }
+    setBoards((prev) => [newBoard, ...prev])
+    setShowForm(false)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div style={{ width: '100%', padding: 16, boxSizing: 'border-box' }}>
+      <header style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '0 16px' }}>
+        <h1 style={{ fontSize: 32, margin: '16px 0' }}>Kudos Boards</h1>
+        <nav className="app-nav">
+          <button
+            type="button"
+            className="app-nav__tab"
+            onClick={() => setShowForm(true)}
+          >
+            Create Board
+          </button>
+        </nav>
+      </header>
 
-      <div className="ticks"></div>
+      <BoardGrid boards={boards} onDeleteBoard={handleDelete} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {showForm && (
+        <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
+      )}
+    </div>
+  )
+}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+// Minimal placeholder so the "View Board" link has somewhere to land.
+function BoardPage() {
+  const { id } = useParams()
+  return (
+    <div style={{ padding: 32, textAlign: 'center' }}>
+      <h1>Board #{id}</h1>
+      <p>(Board detail page — not built yet)</p>
+      <Link to="/">← Back to boards</Link>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/boards/:id" element={<BoardPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

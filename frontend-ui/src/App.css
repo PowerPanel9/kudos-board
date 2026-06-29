@@ -1,3 +1,27 @@
+/* Pinterest-style nav: board-name tabs, left aligned, underline on hover */
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-nav__tab {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  background: none;
+  border: none;
+  padding: 8px 4px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.app-nav__tab:hover {
+  border-bottom-color: var(--text-h);
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

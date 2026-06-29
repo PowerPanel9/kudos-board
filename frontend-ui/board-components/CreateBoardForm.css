@@ -1,0 +1,106 @@
+/* CreateBoardForm — centered modal over a dimmed backdrop. */
+
+.create-board__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.create-board {
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.create-board__heading {
+  margin: 0;
+  font-size: 22px;
+}
+
+.create-board__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+/* Keep the field name and its asterisk on a single line. */
+.create-board__label-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.create-board__required {
+  color: var(--accent);
+}
+
+.create-board__input {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.create-board__input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.create-board__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.create-board__btn {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.15s ease, background 0.15s ease;
+}
+
+.create-board__btn--cancel {
+  background: var(--social-bg);
+  color: var(--text-h);
+}
+
+.create-board__btn--cancel:hover {
+  background: var(--code-bg);
+}
+
+.create-board__btn--submit {
+  background: var(--accent);
+  color: #fff;
+}
+
+.create-board__btn--submit:hover {
+  filter: brightness(1.08);
+}
