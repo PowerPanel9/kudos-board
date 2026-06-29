@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, useParams, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import BoardGrid from '../board-components/BoardGrid'
 import CreateBoardForm from '../board-components/CreateBoardForm'
+import BoardPage from '../Components/BoardPage/BoardPage'
 import './App.css'
 
 // --- Mock data: varied image heights to show the Pinterest masonry effect ---
@@ -55,18 +56,6 @@ function HomePage() {
       {showForm && (
         <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
       )}
-    </div>
-  )
-}
-
-// Minimal placeholder so the "View Board" link has somewhere to land.
-function BoardPage() {
-  const { id } = useParams()
-  return (
-    <div style={{ padding: 32, textAlign: 'center' }}>
-      <h1>Board #{id}</h1>
-      <p>(Board detail page — not built yet)</p>
-      <Link to="/">← Back to boards</Link>
     </div>
   )
 }
