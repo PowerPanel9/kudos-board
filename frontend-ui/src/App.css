@@ -182,3 +182,9 @@
     border-right-color: var(--border);
   }
 }
+
+.add-card-btn-main:hover {
+  transform: translateY(-2px);
+  background: #9333ea !important;
+  box-shadow: 0 4px 12px rgba(170, 59, 255, 0.4) !important;
+}

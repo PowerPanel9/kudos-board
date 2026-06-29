@@ -1,0 +1,120 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import CardGrid from '../CardGrid/CardGrid';
+import CreateCardForm from '../CreateCardForm/CreateCardForm';
+import './BoardPage.css';
+
+const BoardPage = () => {
+    const { id } = useParams();
+    const [board, setBoard] = useState(null);
+    const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showCreateCardForm, setShowCreateCardForm] = useState(false);
+
+    useEffect(() => {
+        const fetchBoardAndCards = async () => {
+            try {
+                const boardResponse = await fetch(`http://localhost:3000/boards/${id}`);
+                const boardData = await boardResponse.json();
+                setBoard(boardData);
+
+                const cardsResponse = await fetch(`http://localhost:3000/boards/${id}/cards`);
+                const cardsData = await cardsResponse.json();
+                setCards(cardsData);
+
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+        fetchBoardAndCards();
+    }, [id]);
+
+    const handleDeleteCard = async (cardId) => {
+        try {
+            await fetch(`http://localhost:3000/cards/${cardId}`, {
+                method: 'DELETE'
+            });
+            setCards(cards.filter(card => card.id !== cardId));
+        } catch (error) {
+            console.error('Error deleting card:', error);
+        }
+    };
+
+    const handleUpvote = async (cardId) => {
+        try {
+            const response = await fetch(`http://localhost:3000/cards/${cardId}/upvote`, {
+                method: 'PATCH'
+            });
+            const updatedCard = await response.json();
+            setCards(cards.map(card =>
+                card.id === cardId ? updatedCard : card
+            ));
+        } catch (error) {
+            console.error('Error upvoting card:', error);
+        }
+    };
+
+    const handleSubmitCard = async (cardData) => {
+        try {
+            const response = await fetch(`http://localhost:3000/boards/${id}/cards`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cardData)
+            });
+            const newCard = await response.json();
+            setCards([...cards, newCard]);
+            setShowCreateCardForm(false);
+        } catch (error) {
+            console.error('Error creating card:', error);
+        }
+    };
+
+    const handleCancelCard = () => {
+        setShowCreateCardForm(false);
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    return (
+        <div className="board-page">
+            <div className="board-header">
+                <h1>{board.title}</h1>
+                <p className="board-category">{board.category}</p>
+                {board.author && <p className="board-author">Created by: {board.author}</p>}
+            </div>
+
+            <button
+                className="add-card-btn"
+                onClick={() => setShowCreateCardForm(!showCreateCardForm)}
+            >
+                {showCreateCardForm ? 'Cancel' : 'Add Card'}
+            </button>
+
+            {showCreateCardForm && (
+                <CreateCardForm
+                    boardId={id}
+                    onSubmit={handleSubmitCard}
+                    onCancel={handleCancelCard}
+                />
+            )}
+
+            <CardGrid
+                cards={cards}
+                onDeleteCard={handleDeleteCard}
+                onUpvote={handleUpvote}
+            />
+        </div>
+    );
+};
+
+export default BoardPage;

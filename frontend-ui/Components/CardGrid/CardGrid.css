@@ -1,0 +1,88 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 50px;
+  gap: 16px;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.card-grid > :nth-child(6n+1) {
+  grid-row: span 8;
+}
+
+.card-grid > :nth-child(6n+2) {
+  grid-row: span 6;
+}
+
+.card-grid > :nth-child(6n+3) {
+  grid-row: span 7;
+}
+
+.card-grid > :nth-child(6n+4) {
+  grid-row: span 5;
+}
+
+.card-grid > :nth-child(6n+5) {
+  grid-row: span 9;
+}
+
+.card-grid > :nth-child(6n+6) {
+  grid-row: span 6;
+}
+
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 40px;
+    gap: 14px;
+  }
+
+  .card-grid > :nth-child(6n+1) {
+    grid-row: span 7;
+  }
+  .card-grid > :nth-child(6n+2) {
+    grid-row: span 5;
+  }
+  .card-grid > :nth-child(6n+3) {
+    grid-row: span 6;
+  }
+  .card-grid > :nth-child(6n+4) {
+    grid-row: span 5;
+  }
+  .card-grid > :nth-child(6n+5) {
+    grid-row: span 8;
+  }
+  .card-grid > :nth-child(6n+6) {
+    grid-row: span 6;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 35px;
+    gap: 12px;
+  }
+
+  .card-grid > :nth-child(4n+1) {
+    grid-row: span 6;
+  }
+  .card-grid > :nth-child(4n+2) {
+    grid-row: span 5;
+  }
+  .card-grid > :nth-child(4n+3) {
+    grid-row: span 7;
+  }
+  .card-grid > :nth-child(4n+4) {
+    grid-row: span 5;
+  }
+}
+
+.no-cards-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
