@@ -122,6 +122,27 @@ App
 - Error Responses:
   - 500 — Server error
 
+#### GET /boards/:id/
+- Purpose: Fetch a specific board with optional search and category filter
+- Request Body: None
+- Success Response (200):
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "Team Wins",
+      "category": "Celebration",
+      "author": "John Doe",
+      "imageUrl": "https://media.giphy.com/...",
+      "createdAt": "2026-06-29T10:00:00Z"
+    }
+  ]
+  ```
+- Error Responses:
+  - 500 — Server error
+
+
+
 #### POST /boards
 - Purpose: Create a new board
 - Request Body:
@@ -228,7 +249,7 @@ App
   - 404 — Card not found
   - 500 — Server error
 
-#### PATCH /cards/:id/upvote
+#### PUT /cards/:id/upvote
 - Purpose: Increment a card's upvote count
 - URL Parameters: `id` (number) — card ID
 - Request Body: None
@@ -407,4 +428,6 @@ Constraints:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-Desicion Log
+Decision Log
+
+Milestone 1
