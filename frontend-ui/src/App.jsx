@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import BoardGrid from '../board-components/BoardGrid'
 import CreateBoardForm from '../board-components/CreateBoardForm'
 import BoardPage from '../Components/BoardPage/BoardPage'
+import Filter from '../Components/Filter';
+import Header from '../Components/Header';
 import './App.css'
 
 // --- Mock data: varied image heights to show the Pinterest masonry effect ---
@@ -61,8 +63,18 @@ function HomePage() {
 }
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilter, setActiveFilter] = useState('All');
   return (
     <BrowserRouter>
+      <Header 
+      setSearchTerm={setSearchTerm} 
+      searchTerm={searchTerm}
+      />
+      <Filter
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
+        />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/boards/:id" element={<BoardPage />} />
@@ -71,4 +83,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
