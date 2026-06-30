@@ -6,10 +6,36 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+ 
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Board {
+  id        Int      @id @default(autoincrement())
+  title     String   // required
+  category  String   // required, enum: "Celebration", "Thank You", "Inspiration"
+  author    String?  // optional
+  imageUrl  String?  // optional, stores gif/image URL
+  createdAt DateTime @default(now())
+  cards     Card[]   // one-to-many relationship
+}
+
+
+model Card {
+  id        Int      @id @default(autoincrement())
+  message   String   // required
+  gifUrl    String   // required, stores gif URL
+  author    String?  // optional
+  upvotes   Int      @default(0)
+  createdAt DateTime @default(now())
+  boardId   Int      // foreign key
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+}
+
+
+
