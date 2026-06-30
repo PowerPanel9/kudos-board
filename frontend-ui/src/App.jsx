@@ -5,6 +5,7 @@ import CreateBoardForm from '../board-components/CreateBoardForm'
 import BoardPage from '../Components/BoardPage/BoardPage'
 import Filter from '../Components/Filter';
 import Header from '../Components/Header';
+import Search from '../Components/Search';
 import './App.css'
 
 // --- Mock data: varied image heights to show the Pinterest masonry effect ---
@@ -22,6 +23,8 @@ const INITIAL_BOARDS = [
 function HomePage() {
   const [boards, setBoards] = useState(INITIAL_BOARDS)
   const [showForm, setShowForm] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeFilter, setActiveFilter] = useState('All')
 
   const handleDelete = async (id) => {
     setBoards((prev) => prev.filter((b) => b.id !== id))
@@ -38,22 +41,33 @@ function HomePage() {
     setShowForm(false)
   }
 
+  // The filter tabs are currently visual-only — they highlight the active tab
+  // but don't affect which boards show. Filtering will be wired up once the
+  // backend is implemented.
+  const term = searchTerm.trim().toLowerCase()
+  const visibleBoards = boards.filter((b) => {
+    return !term || b.title.toLowerCase().includes(term)
+  })
+
   return (
     <div style={{ width: '100%', padding: 16, boxSizing: 'border-box' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '0 16px' }}>
-        <h1 style={{ fontSize: 32, margin: '16px 0' }}>Kudos Boards</h1>
-        <nav className="app-nav">
+      <div className="toolbar">
+        <div className="toolbar__left">
+          <Filter activeFilter={activeFilter} onFilterChange={setActiveFilter} />
           <button
             type="button"
-            className="app-nav__tab"
+            className="create-board-btn"
             onClick={() => setShowForm(true)}
           >
             Create Board
           </button>
-        </nav>
-      </header>
+        </div>
+        <div className="toolbar__right">
+          <Search onSearch={setSearchTerm} />
+        </div>
+      </div>
 
-      <BoardGrid boards={boards} onDeleteBoard={handleDelete} />
+      <BoardGrid boards={visibleBoards} onDeleteBoard={handleDelete} />
 
       {showForm && (
         <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
@@ -63,18 +77,9 @@ function HomePage() {
 }
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState('All');
   return (
     <BrowserRouter>
-      <Header 
-      setSearchTerm={setSearchTerm} 
-      searchTerm={searchTerm}
-      />
-      <Filter
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/boards/:id" element={<BoardPage />} />
