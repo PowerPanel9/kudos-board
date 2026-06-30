@@ -15,14 +15,6 @@ const Header = ({ setSearchTerm }) => {
         <header className='header'>
             <h1 className='header-title'>KUDOS</h1>
         
-        {/* <nav className='filter-nav'>
-            <NavLink to='/'>All</NavLink>
-            <NavLink to='/boards'>All</NavLink>
-            <NavLink to='/boards'>Recent</NavLink>
-            <NavLink to='/boards'>Celebration</NavLink>
-            <NavLink to='/boards'>Thank You</NavLink>
-            <NavLink to='/boards'>Inspiration</NavLink>
-        </nav> */ }
         <div className='search-wrap'>
           <button
             type='button'
