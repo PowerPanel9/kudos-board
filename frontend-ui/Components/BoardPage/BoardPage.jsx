@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CardGrid from '../CardGrid/CardGrid';
 import CreateCardForm from '../CreateCardForm/CreateCardForm';
+import { API_BASE_URL } from '../../src/config';
 import './BoardPage.css';
 
 const BoardPage = () => {
@@ -15,11 +16,11 @@ const BoardPage = () => {
     useEffect(() => {
         const fetchBoardAndCards = async () => {
             try {
-                const boardResponse = await fetch(`http://localhost:3000/api/boards/${id}`);
+                const boardResponse = await fetch(`${API_BASE_URL}/boards/${id}`);
                 const boardData = await boardResponse.json();
                 setBoard(boardData);
 
-                const cardsResponse = await fetch(`http://localhost:3000/api/cards?boardId=${id}`);
+                const cardsResponse = await fetch(`${API_BASE_URL}/cards?boardId=${id}`);
                 const cardsData = await cardsResponse.json();
                 setCards(cardsData);
 
@@ -34,7 +35,7 @@ const BoardPage = () => {
 
     const handleDeleteCard = async (cardId) => {
         try {
-            await fetch(`http://localhost:3000/api/cards/${cardId}`, {
+            await fetch(`${API_BASE_URL}/cards/${cardId}`, {
                 method: 'DELETE'
             });
             setCards(cards.filter(card => card.id !== cardId));
@@ -45,7 +46,7 @@ const BoardPage = () => {
 
     const handleUpvote = async (cardId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cards/${cardId}`, {
+            const response = await fetch(`${API_BASE_URL}/cards/${cardId}`, {
                 method: 'PUT'
             });
             const updatedCard = await response.json();
@@ -59,7 +60,7 @@ const BoardPage = () => {
 
     const handleSubmitCard = async (cardData) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cards`, {
+            const response = await fetch(`${API_BASE_URL}/cards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

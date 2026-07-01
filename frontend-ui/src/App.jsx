@@ -6,9 +6,8 @@ import BoardPage from '../Components/BoardPage/BoardPage'
 import Filter from '../Components/Filter';
 import Header from '../Components/Header';
 import Search from '../Components/Search';
+import { API_BASE_URL } from './config'
 import './App.css'
-
-const API_BASE_URL = 'http://localhost:3000/api'
 
 function HomePage() {
   const [boards, setBoards] = useState([])
