@@ -43,7 +43,7 @@ function BoardCard({ board, onDelete }) {
           </button>
 
           <Link to={`/boards/${id}`} className="board-card__view">
-            View Board
+            View
           </Link>
         </div>
       </div>

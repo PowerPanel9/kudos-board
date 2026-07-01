@@ -1,5 +1,11 @@
 # kudos-board
 
+add a boards.json file with all the data, and conenct oit to seed.js 
+-test with postman
+-conenct front and back end
+-improve UI
+
+
 📝 `NOTE` Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (🚫 Remove this paragraph before submitting your assignment.)
 
 ## Unit Assignment: Kudos Board

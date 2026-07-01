@@ -1,4 +1,4 @@
-const FILTER_OPTIONS = ['All', 'Recent', 'Celebration', 'Thank You', 'Inspiration'];
+const FILTER_OPTIONS = ['All', 'Recent', 'Celebration', 'Recognition', 'Milestone', 'Welcome', 'Innovation'];
 
 function Filter({ activeFilter, onFilterChange }) {
   return (

@@ -1,0 +1,220 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "board_id": 1,
+      "message": "Thank you for always being so supportive and helpful! Your positive attitude makes such a difference.",
+      "gif_url": "https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif",
+      "author": "Alex Martinez",
+      "upvotes": 15
+    },
+    {
+      "id": 2,
+      "board_id": 1,
+      "message": "Your dedication to the team is truly inspiring. Thank you for going above and beyond!",
+      "gif_url": "https://media.giphy.com/media/ZfK4cXKJTTay1Ava29/giphy.gif",
+      "author": "Rachel Green",
+      "upvotes": 23
+    },
+    {
+      "id": 3,
+      "board_id": 2,
+      "message": "Happy Birthday! Wishing you an incredible year ahead filled with joy and success!",
+      "gif_url": "https://media.giphy.com/media/He4wudo59enf2/giphy.gif",
+      "author": "Jennifer Lee",
+      "upvotes": 42
+    },
+    {
+      "id": 4,
+      "board_id": 2,
+      "message": "Hope your birthday is as awesome as you are! Cheers to another great year!",
+      "gif_url": "https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif",
+      "author": "Chris Brown",
+      "upvotes": 38
+    },
+    {
+      "id": 5,
+      "board_id": 2,
+      "message": "May your special day be filled with laughter, love, and cake!",
+      "gif_url": "https://media.giphy.com/media/KBx7jPAV7AGqs/giphy.gif",
+      "author": "Mike Johnson",
+      "upvotes": 29
+    },
+    {
+      "id": 6,
+      "board_id": 3,
+      "message": "Congrats on the successful launch! Your hard work really paid off. Well done team!",
+      "gif_url": "https://media.giphy.com/media/artj92V8o75VPL7AeQ/giphy.gif",
+      "author": "Amanda White",
+      "upvotes": 56
+    },
+    {
+      "id": 7,
+      "board_id": 3,
+      "message": "This milestone wouldn't have been possible without everyone's effort. Great job!",
+      "gif_url": "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+      "author": "Kevin Patel",
+      "upvotes": 48
+    },
+    {
+      "id": 8,
+      "board_id": 3,
+      "message": "What an achievement! You crushed those goals!",
+      "gif_url": "https://media.giphy.com/media/g9582DNuQppxC/giphy.gif",
+      "author": "Sarah Kim",
+      "upvotes": 51
+    },
+    {
+      "id": 9,
+      "board_id": 4,
+      "message": "Welcome to the team! We're so excited to have you here. Can't wait to work together!",
+      "gif_url": "https://media.giphy.com/media/Ae7SI3LoPYj8Q/giphy.gif",
+      "author": "Nicole Davis",
+      "upvotes": 31
+    },
+    {
+      "id": 10,
+      "board_id": 4,
+      "message": "Great to have you on board! Looking forward to all the amazing things we'll accomplish together.",
+      "gif_url": "https://media.giphy.com/media/XD9o33QG9BoMis7iM4/giphy.gif",
+      "author": "Mark Johnson",
+      "upvotes": 27
+    },
+    {
+      "id": 11,
+      "board_id": 5,
+      "message": "Your customer service skills are outstanding! You always make our clients feel valued.",
+      "gif_url": "https://media.giphy.com/media/3o7abB06u9bNzA8lu8/giphy.gif",
+      "author": "Sophia Garcia",
+      "upvotes": 44
+    },
+    {
+      "id": 12,
+      "board_id": 5,
+      "message": "Thank you for handling that difficult situation with such grace and professionalism!",
+      "gif_url": "https://media.giphy.com/media/l3q2Z6S6n38zjPswo/giphy.gif",
+      "author": "Daniel Moore",
+      "upvotes": 39
+    },
+    {
+      "id": 13,
+      "board_id": 6,
+      "message": "Your innovative approach to solving problems is exactly what we need. Keep the ideas coming!",
+      "gif_url": "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif",
+      "author": "Olivia Taylor",
+      "upvotes": 52
+    },
+    {
+      "id": 14,
+      "board_id": 6,
+      "message": "Love your creativity! This idea could be a game-changer for our team.",
+      "gif_url": "https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif",
+      "author": "Ryan Clark",
+      "upvotes": 47
+    },
+    {
+      "id": 15,
+      "board_id": 6,
+      "message": "Brilliant thinking! You always find creative solutions to tough problems.",
+      "gif_url": "https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif",
+      "author": "Emma Stone",
+      "upvotes": 55
+    },
+    {
+      "id": 16,
+      "board_id": 7,
+      "message": "Congratulations on 5 amazing years with us! Your dedication is truly appreciated.",
+      "gif_url": "https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif",
+      "author": "Sarah Mitchell",
+      "upvotes": 62
+    },
+    {
+      "id": 17,
+      "board_id": 7,
+      "message": "Happy work anniversary! Here's to many more years of success together!",
+      "gif_url": "https://media.giphy.com/media/LoCDk7fecj2dwCtSB3/giphy.gif",
+      "author": "James Wilson",
+      "upvotes": 58
+    },
+    {
+      "id": 18,
+      "board_id": 8,
+      "message": "Our team retreat was amazing thanks to your organization! Great memories made.",
+      "gif_url": "https://media.giphy.com/media/KB8C86UMgLDThpt4WT/giphy.gif",
+      "author": "Emma Davis",
+      "upvotes": 45
+    },
+    {
+      "id": 19,
+      "board_id": 8,
+      "message": "The team building activities you planned brought us all closer. Thank you!",
+      "gif_url": "https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif",
+      "author": "Alex Johnson",
+      "upvotes": 41
+    },
+    {
+      "id": 20,
+      "board_id": 9,
+      "message": "Your Q4 results were phenomenal! You've set a new standard for excellence.",
+      "gif_url": "https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif",
+      "author": "Michael Brown",
+      "upvotes": 71
+    },
+    {
+      "id": 21,
+      "board_id": 9,
+      "message": "Outstanding work on the client presentation! You nailed it!",
+      "gif_url": "https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif",
+      "author": "Lisa Anderson",
+      "upvotes": 65
+    },
+    {
+      "id": 22,
+      "board_id": 10,
+      "message": "Your solution to the automation problem was brilliant! Saved us weeks of work.",
+      "gif_url": "https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif",
+      "author": "David Martinez",
+      "upvotes": 79
+    },
+    {
+      "id": 23,
+      "board_id": 10,
+      "message": "The new feature you designed is getting rave reviews from users!",
+      "gif_url": "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif",
+      "author": "Rachel Kim",
+      "upvotes": 68
+    },
+    {
+      "id": 24,
+      "board_id": 11,
+      "message": "Welcome aboard! Can't wait to see all the great things you'll accomplish here.",
+      "gif_url": "https://media.giphy.com/media/l0MYGb2iHP6UUhLKo/giphy.gif",
+      "author": "Chris Taylor",
+      "upvotes": 35
+    },
+    {
+      "id": 25,
+      "board_id": 11,
+      "message": "So excited to have you on the team! Your energy is contagious!",
+      "gif_url": "https://media.giphy.com/media/Ae7SI3LoPYj8Q/giphy.gif",
+      "author": "Anna White",
+      "upvotes": 32
+    },
+    {
+      "id": 26,
+      "board_id": 12,
+      "message": "Happy Holidays! Thank you for making this year so special!",
+      "gif_url": "https://media.giphy.com/media/3o6ZsZdNs3yE5l6hWM/giphy.gif",
+      "author": "Brian Cooper",
+      "upvotes": 54
+    },
+    {
+      "id": 27,
+      "board_id": 12,
+      "message": "Wishing you and your family a wonderful holiday season! Cheers to a great year!",
+      "gif_url": "https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif",
+      "author": "Jennifer Lopez",
+      "upvotes": 50
+    }
+  ]
+}

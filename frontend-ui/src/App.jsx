@@ -1,59 +1,114 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import BoardGrid from '../board-components/BoardGrid'
 import CreateBoardForm from '../board-components/CreateBoardForm'
 import BoardPage from '../Components/BoardPage/BoardPage'
 import Filter from '../Components/Filter';
 import Header from '../Components/Header';
+import Search from '../Components/Search';
 import './App.css'
 
-// --- Mock data: varied image heights to show the Pinterest masonry effect ---
-const INITIAL_BOARDS = [
-  { id: 1, title: 'Team Wins', category: 'Celebration', author: 'John', imageUrl: 'https://picsum.photos/id/1015/400/600' },
-  { id: 2, title: 'Thanks Crew', category: 'Thank You', author: 'Jane', imageUrl: 'https://picsum.photos/id/1025/400/300' },
-  { id: 3, title: 'Stay Inspired', category: 'Inspiration', author: 'Sam', imageUrl: 'https://picsum.photos/id/1035/400/500' },
-  { id: 4, title: 'Q3 Launch', category: 'Celebration', author: 'Lee', imageUrl: 'https://picsum.photos/id/1040/400/250' },
-  { id: 5, title: 'Mentor Love', category: 'Thank You', author: 'Pat', imageUrl: 'https://picsum.photos/id/1050/400/650' },
-  { id: 6, title: 'Big Dreams', category: 'Inspiration', author: 'Kim', imageUrl: 'https://picsum.photos/id/1060/400/400' },
-  { id: 7, title: 'Shipped It', category: 'Celebration', author: 'Ana', imageUrl: 'https://picsum.photos/id/1062/400/550' },
-  { id: 8, title: 'Kudos All', category: 'Thank You', author: 'Max', imageUrl: 'https://picsum.photos/id/1074/400/350' },
-]
+const API_BASE_URL = 'http://localhost:3000/api'
 
 function HomePage() {
-  const [boards, setBoards] = useState(INITIAL_BOARDS)
+  const [boards, setBoards] = useState([])
   const [showForm, setShowForm] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeFilter, setActiveFilter] = useState('All')
+
+  // Fetch boards from backend on component mount
+  useEffect(() => {
+    fetchBoards()
+  }, [])
+
+  const fetchBoards = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/boards`)
+      const data = await response.json()
+      setBoards(data)
+    } catch (error) {
+      console.error('Error fetching boards:', error)
+    }
+  }
 
   const handleDelete = async (id) => {
-    setBoards((prev) => prev.filter((b) => b.id !== id))
+    try {
+      const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
+        method: 'DELETE',
+      })
+      if (response.ok) {
+        setBoards((prev) => prev.filter((b) => b.id !== id))
+      }
+    } catch (error) {
+      console.error('Error deleting board:', error)
+    }
   }
 
   const handleCreate = async (data) => {
-    const newBoard = {
-      id: Math.max(0, ...boards.map((b) => b.id)) + 1,
-      ...data,
-      // fall back to a random image if none provided
-      imageUrl: data.imageUrl || `https://picsum.photos/400/${400 + (boards.length % 3) * 100}`,
+    try {
+      const response = await fetch(`${API_BASE_URL}/boards`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        const newBoard = await response.json()
+        setBoards((prev) => [newBoard, ...prev])
+        setShowForm(false)
+      }
+    } catch (error) {
+      console.error('Error creating board:', error)
     }
-    setBoards((prev) => [newBoard, ...prev])
-    setShowForm(false)
   }
+
+  // Filter and search logic
+  const term = searchTerm.trim().toLowerCase()
+  const visibleBoards = boards.filter((b) => {
+    // Apply search filter
+    const matchesSearch = !term || b.title.toLowerCase().includes(term)
+
+    // Apply category filter
+    let matchesFilter = true
+    if (activeFilter === 'All') {
+      matchesFilter = true
+    } else if (activeFilter === 'Recent') {
+      // Recent filter will show all boards sorted by creation date
+      // The sorting is handled separately, so we just show all here
+      matchesFilter = true
+    } else {
+      // Filter by specific category
+      matchesFilter = b.category === activeFilter
+    }
+
+    return matchesSearch && matchesFilter
+  })
+
+  // Sort by date if "Recent" is selected
+  const sortedBoards = activeFilter === 'Recent'
+    ? [...visibleBoards].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6)
+    : visibleBoards
 
   return (
     <div style={{ width: '100%', padding: 16, boxSizing: 'border-box' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '0 16px' }}>
-        <h1 style={{ fontSize: 32, margin: '16px 0' }}>Kudos Boards</h1>
-        <nav className="app-nav">
+      <div className="toolbar">
+        <div className="toolbar__left">
+          <Filter activeFilter={activeFilter} onFilterChange={setActiveFilter} />
           <button
             type="button"
-            className="app-nav__tab"
+            className="create-board-btn"
             onClick={() => setShowForm(true)}
           >
             Create Board
           </button>
-        </nav>
-      </header>
+        </div>
+        <div className="toolbar__right">
+          <Search onSearch={setSearchTerm} />
+        </div>
+      </div>
 
-      <BoardGrid boards={boards} onDeleteBoard={handleDelete} />
+      <BoardGrid boards={sortedBoards} onDeleteBoard={handleDelete} />
 
       {showForm && (
         <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
@@ -63,18 +118,9 @@ function HomePage() {
 }
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState('All');
   return (
     <BrowserRouter>
-      <Header 
-      setSearchTerm={setSearchTerm} 
-      searchTerm={searchTerm}
-      />
-      <Filter
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/boards/:id" element={<BoardPage />} />

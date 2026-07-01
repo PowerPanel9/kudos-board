@@ -50,10 +50,10 @@
 .board-card__delete,
 .board-card__view {
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: 12px 28px;
   border: none;
   cursor: pointer;
   text-decoration: none;

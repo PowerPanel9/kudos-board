@@ -15,11 +15,11 @@ const BoardPage = () => {
     useEffect(() => {
         const fetchBoardAndCards = async () => {
             try {
-                const boardResponse = await fetch(`http://localhost:3000/boards/${id}`);
+                const boardResponse = await fetch(`http://localhost:3000/api/boards/${id}`);
                 const boardData = await boardResponse.json();
                 setBoard(boardData);
 
-                const cardsResponse = await fetch(`http://localhost:3000/boards/${id}/cards`);
+                const cardsResponse = await fetch(`http://localhost:3000/api/cards?boardId=${id}`);
                 const cardsData = await cardsResponse.json();
                 setCards(cardsData);
 
@@ -34,7 +34,7 @@ const BoardPage = () => {
 
     const handleDeleteCard = async (cardId) => {
         try {
-            await fetch(`http://localhost:3000/cards/${cardId}`, {
+            await fetch(`http://localhost:3000/api/cards/${cardId}`, {
                 method: 'DELETE'
             });
             setCards(cards.filter(card => card.id !== cardId));
@@ -45,8 +45,8 @@ const BoardPage = () => {
 
     const handleUpvote = async (cardId) => {
         try {
-            const response = await fetch(`http://localhost:3000/cards/${cardId}/upvote`, {
-                method: 'PATCH'
+            const response = await fetch(`http://localhost:3000/api/cards/${cardId}`, {
+                method: 'PUT'
             });
             const updatedCard = await response.json();
             setCards(cards.map(card =>
@@ -59,12 +59,12 @@ const BoardPage = () => {
 
     const handleSubmitCard = async (cardData) => {
         try {
-            const response = await fetch(`http://localhost:3000/boards/${id}/cards`, {
+            const response = await fetch(`http://localhost:3000/api/cards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(cardData)
+                body: JSON.stringify({ ...cardData, boardId: id })
             });
             const newCard = await response.json();
             setCards([...cards, newCard]);
@@ -88,17 +88,18 @@ const BoardPage = () => {
     return (
         <div className="board-page">
             <div className="board-header">
-                <h1>{board.title}</h1>
-                <p className="board-category">{board.category}</p>
-                {board.author && <p className="board-author">Created by: {board.author}</p>}
+                <div>
+                    <h1>{board.title}</h1>
+                    <p className="board-category">{board.category}</p>
+                    {board.author && <p className="board-author">Created by: {board.author}</p>}
+                </div>
+                <button
+                    className="add-card-btn"
+                    onClick={() => setShowCreateCardForm(!showCreateCardForm)}
+                >
+                    {showCreateCardForm ? 'Cancel' : 'Add Card'}
+                </button>
             </div>
-
-            <button
-                className="add-card-btn"
-                onClick={() => setShowCreateCardForm(!showCreateCardForm)}
-            >
-                {showCreateCardForm ? 'Cancel' : 'Add Card'}
-            </button>
 
             {showCreateCardForm && (
                 <CreateCardForm

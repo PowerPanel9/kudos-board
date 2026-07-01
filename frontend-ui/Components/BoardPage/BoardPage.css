@@ -1,16 +1,18 @@
 .board-page {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
   padding: 2rem;
-  background-color: #f7f7f7;
+  background-color: #000000;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .board-header {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: #aa3bff;
+  padding: 1.5rem 2rem;
+  background: #7c3aed;
   border-radius: 20px;
   color: white;
 }
@@ -19,25 +21,26 @@
   margin: 0;
   font-size: 2.5rem;
   font-weight: 700;
+  color: white;
 }
 
 .board-category {
   margin: 0.5rem 0;
   font-size: 1.1rem;
   opacity: 0.9;
+  color: white;
 }
 
 .board-author {
   margin: 0.5rem 0;
   font-size: 0.9rem;
   opacity: 0.8;
+  color: white;
 }
 
 .add-card-btn {
-  display: block;
-  margin: 2rem auto;
   padding: 1rem 2.5rem;
-  background: #aa3bff;
+  background: #7c3aed;
   color: white;
   border: none;
   border-radius: 30px;
@@ -45,13 +48,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(170, 59, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+  flex-shrink: 0;
 }
 
 .add-card-btn:hover {
   transform: translateY(-2px);
-  background: #9333ea;
-  box-shadow: 0 4px 12px rgba(170, 59, 255, 0.4);
+  background: #6d28d9;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
 }
 
 .add-card-btn:active {
