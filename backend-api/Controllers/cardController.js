@@ -41,7 +41,13 @@ const createCard = async (req, res) => {
     }
 
     const card = await prisma.card.create({
-      data: { message, gifUrl, author, boardId: parsedBoardId },
+      data: {
+        message,
+        gifUrl,
+        author: author?.trim() ? author.trim() : null,
+        boardId: parsedBoardId,
+        ownerId: req.user?.userId ?? null,
+      },
     });
     res.status(201).json(card);
   } catch (err) {

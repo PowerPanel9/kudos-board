@@ -41,6 +41,18 @@ export const getNameFromToken = () => {
   }
 };
 
+export const getUserIdFromToken = () => {
+  const token = getToken();
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.userId ?? null;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const setDisplayName = (name) => {
   if (!name) return;
   localStorage.setItem(DISPLAY_NAME_KEY, name);

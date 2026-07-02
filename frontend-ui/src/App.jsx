@@ -8,7 +8,7 @@ import Header from '../Components/Header';
 import Search from '../Components/Search';
 import Login from '../Components/Login';
 import { API_BASE_URL } from './config'
-import { clearToken, getAuthHeaders, getToken } from './auth'
+import { clearToken, getAuthHeaders, getToken, getUserIdFromToken } from './auth'
 import './App.css'
 
 function HomePage() {
@@ -17,6 +17,7 @@ function HomePage() {
   const [showForm, setShowForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [activeFilter, setActiveFilter] = useState('All')
+  const currentUserId = getUserIdFromToken()
 
   // Fetch boards from backend on component mount
   useEffect(() => {
@@ -91,19 +92,14 @@ function HomePage() {
   // Filter and search logic
   const term = searchTerm.trim().toLowerCase()
   const visibleBoards = boards.filter((b) => {
-    // Apply search filter
     const matchesSearch = !term || b.title.toLowerCase().includes(term)
 
-    // Apply category filter
     let matchesFilter = true
-    if (activeFilter === 'All') {
+    if (activeFilter === 'All' || activeFilter === 'Recent') {
       matchesFilter = true
-    } else if (activeFilter === 'Recent') {
-      // Recent filter will show all boards sorted by creation date
-      // The sorting is handled separately, so we just show all here
-      matchesFilter = true
+    } else if (activeFilter === 'Mine') {
+      matchesFilter = currentUserId != null && b.ownerId === currentUserId
     } else {
-      // Filter by specific category
       matchesFilter = b.category === activeFilter
     }
 
@@ -133,7 +129,12 @@ function HomePage() {
         </div>
       </div>
 
-      <BoardGrid boards={sortedBoards} onDeleteBoard={handleDelete} onAddBoard={() => setShowForm(true)} />
+      <BoardGrid
+        boards={sortedBoards}
+        onDeleteBoard={handleDelete}
+        onAddBoard={() => setShowForm(true)}
+        currentUserId={currentUserId}
+      />
 
       {showForm && (
         <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />

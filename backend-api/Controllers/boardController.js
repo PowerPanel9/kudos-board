@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const getAllBoards = async (req, res) => {
   try {
-    const { filter, category } = req.query;
+    const { filter, category, mine } = req.query;
     const allowedCategories = ["Celebration", "Thank You", "Inspiration"];
 
     const where = {};
@@ -12,11 +12,18 @@ const getAllBoards = async (req, res) => {
         return res.status(400).json({ error: "Invalid category filter" });
       }
       where.category = category;
-    } else if (filter && filter !== "all" && filter !== "recent") {
+    } else if (filter && filter !== "all" && filter !== "recent" && filter !== "mine") {
       if (!allowedCategories.includes(filter)) {
         return res.status(400).json({ error: "Invalid filter value" });
       }
       where.category = filter;
+    }
+
+    if (mine === "true" || filter === "mine") {
+      if (!req.user?.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+      where.ownerId = req.user.userId;
     }
 
     const orderBy = filter === "recent" ? { createdAt: "desc" } : undefined;
@@ -54,7 +61,13 @@ const createBoard = async (req, res) => {
   try {
     const { title, category, author, imageUrl } = req.body;
     const board = await prisma.board.create({
-      data: { title, category, author, imageUrl },
+      data: {
+        title,
+        category,
+        author,
+        imageUrl,
+        ownerId: req.user?.userId ?? null,
+      },
     });
     res.status(201).json(board);
   } catch (error) {
@@ -93,9 +106,16 @@ const deleteBoard = async (req, res) => {
       return res.status(400).json({ error: "Invalid board id" });
     }
 
-    await prisma.board.delete({
-      where: { id },
-    });
+    const board = await prisma.board.findUnique({ where: { id } });
+    if (!board) {
+      return res.status(404).json({ error: "Board not found" });
+    }
+
+    if (board.ownerId !== req.user?.userId) {
+      return res.status(403).json({ error: "You can only delete boards you own" });
+    }
+
+    await prisma.board.delete({ where: { id } });
     res.json({ message: "Board deleted successfully" });
   } catch (err) {
     if (err.code === "P2025") {

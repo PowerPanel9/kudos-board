@@ -11,14 +11,19 @@ import './BoardGrid.css'
  *   onDeleteBoard — function: passed through to each BoardCard's onDelete
  *   onAddBoard   — function: opens the create-board form
  */
-function BoardGrid({ boards, onDeleteBoard, onAddBoard }) {
+function BoardGrid({ boards, onDeleteBoard, onAddBoard, currentUserId }) {
   const hasBoards = Boolean(boards && boards.length > 0)
   return (
     <div className={`board-grid ${hasBoards ? '' : 'board-grid--empty'}`.trim()}>
       {hasBoards ? (
         <>
           {boards.map((board) => (
-            <BoardCard key={board.id} board={board} onDelete={onDeleteBoard} />
+            <BoardCard
+              key={board.id}
+              board={board}
+              onDelete={onDeleteBoard}
+              canDelete={currentUserId != null && board.ownerId === currentUserId}
+            />
           ))}
           <button type="button" className="board-grid__add-tile" onClick={onAddBoard} aria-label="Add board">
             +
