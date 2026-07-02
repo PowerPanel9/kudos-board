@@ -80,6 +80,34 @@
   margin: 0;
 }
 
+.header-welcome {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-auth {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.header-logout-link {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.header-logout-link:hover {
+  text-decoration: underline;
+}
+
 /* --- Toolbar row: search on the left, filters + Create Board on the right --- */
 .toolbar {
   display: flex;

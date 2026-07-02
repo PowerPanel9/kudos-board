@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CardGrid from '../CardGrid/CardGrid';
 import CreateCardForm from '../CreateCardForm/CreateCardForm';
 import { API_BASE_URL } from '../../src/config';
+import { clearToken, getAuthHeaders } from '../../src/auth';
 import './BoardPage.css';
 
 const BoardPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [board, setBoard] = useState(null);
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,11 +18,29 @@ const BoardPage = () => {
     useEffect(() => {
         const fetchBoardAndCards = async () => {
             try {
-                const boardResponse = await fetch(`${API_BASE_URL}/boards/${id}`);
+                const boardResponse = await fetch(`${API_BASE_URL}/boards/${id}`, {
+                    headers: {
+                        ...getAuthHeaders()
+                    }
+                });
+                if (boardResponse.status === 401) {
+                    clearToken();
+                    navigate('/signin');
+                    return;
+                }
                 const boardData = await boardResponse.json();
                 setBoard(boardData);
 
-                const cardsResponse = await fetch(`${API_BASE_URL}/cards?boardId=${id}`);
+                const cardsResponse = await fetch(`${API_BASE_URL}/cards?boardId=${id}`, {
+                    headers: {
+                        ...getAuthHeaders()
+                    }
+                });
+                if (cardsResponse.status === 401) {
+                    clearToken();
+                    navigate('/signin');
+                    return;
+                }
                 const cardsData = await cardsResponse.json();
                 setCards(cardsData);
 
@@ -31,13 +51,21 @@ const BoardPage = () => {
             }
         };
         fetchBoardAndCards();
-    }, [id]);
+    }, [id, navigate]);
 
     const handleDeleteCard = async (cardId) => {
         try {
-            await fetch(`${API_BASE_URL}/cards/${cardId}`, {
-                method: 'DELETE'
+            const response = await fetch(`${API_BASE_URL}/cards/${cardId}`, {
+                method: 'DELETE',
+                headers: {
+                    ...getAuthHeaders()
+                }
             });
+            if (response.status === 401) {
+                clearToken();
+                navigate('/signin');
+                return;
+            }
             setCards(cards.filter(card => card.id !== cardId));
         } catch (error) {
             console.error('Error deleting card:', error);
@@ -47,8 +75,16 @@ const BoardPage = () => {
     const handleUpvote = async (cardId) => {
         try {
             const response = await fetch(`${API_BASE_URL}/cards/${cardId}`, {
-                method: 'PUT'
+                method: 'PUT',
+                headers: {
+                    ...getAuthHeaders()
+                }
             });
+            if (response.status === 401) {
+                clearToken();
+                navigate('/signin');
+                return;
+            }
             const updatedCard = await response.json();
             setCards(cards.map(card =>
                 card.id === cardId ? updatedCard : card
@@ -63,10 +99,16 @@ const BoardPage = () => {
             const response = await fetch(`${API_BASE_URL}/cards`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    ...getAuthHeaders()
                 },
                 body: JSON.stringify({ ...cardData, boardId: id })
             });
+            if (response.status === 401) {
+                clearToken();
+                navigate('/signin');
+                return;
+            }
             const newCard = await response.json();
             setCards([...cards, newCard]);
             setShowCreateCardForm(false);

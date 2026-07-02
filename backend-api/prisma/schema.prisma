@@ -30,3 +30,12 @@ model Card {
   boardId   Int
   board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
