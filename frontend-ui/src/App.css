@@ -108,6 +108,20 @@
   text-decoration: underline;
 }
 
+.header-signin-link {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.header-signin-link:hover {
+  text-decoration: underline;
+}
+
 /* --- Toolbar row: search on the left, filters + Create Board on the right --- */
 .toolbar {
   display: flex;

@@ -17,14 +17,24 @@ const Header = () => {
             <Link to="/" className='header-link'>
                 <h1 className='header-title'>KUDOS</h1>
             </Link>
-            {isAuthenticated && (
-                <div className="header-auth">
-                    <p className="header-welcome">Welcome {name}</p>
-                    <button type="button" className="header-logout-link" onClick={handleLogout}>
-                        Logout
+            <div className="header-auth">
+                {isAuthenticated ? (
+                    <>
+                        <p className="header-welcome">Welcome {name}</p>
+                        <button type="button" className="header-logout-link" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </>
+                ) : (
+                    <button
+                        type="button"
+                        className="header-signin-link"
+                        onClick={() => navigate('/signin')}
+                    >
+                        Sign In
                     </button>
-                </div>
-            )}
+                )}
+            </div>
         </header>
     );
 };

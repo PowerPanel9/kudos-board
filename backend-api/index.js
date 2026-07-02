@@ -8,7 +8,6 @@ const cors = require("cors");
 const boardRoutes = require("./Routes/boardRoute");
 const cardRoutes = require("./Routes/cardRoute");
 const userRoutes = require("./Routes/userRoutes");
-const { requireAuth } = require("./Middleware/Security");
 const app = express();
 const PORT = process.env.PORT;
 
@@ -23,8 +22,8 @@ app.get("/", (req, res) => {
   });
 
 app.use("/api/auth", userRoutes);
-app.use("/api/boards", requireAuth, boardRoutes);
-app.use("/api/cards", requireAuth, cardRoutes);
+app.use("/api/boards", boardRoutes);
+app.use("/api/cards", cardRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

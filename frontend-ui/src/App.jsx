@@ -18,6 +18,7 @@ function HomePage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [activeFilter, setActiveFilter] = useState('All')
   const currentUserId = getUserIdFromToken()
+  const isAuthenticated = Boolean(getToken())
 
   // Fetch boards from backend on component mount
   useEffect(() => {
@@ -31,11 +32,6 @@ function HomePage() {
           ...getAuthHeaders(),
         },
       })
-      if (response.status === 401) {
-        clearToken()
-        navigate('/signin')
-        return
-      }
       const data = await response.json()
       setBoards(data)
     } catch (error) {
@@ -116,13 +112,15 @@ function HomePage() {
       <div className="toolbar">
         <div className="toolbar__left">
           <Filter activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-          <button
-            type="button"
-            className="create-board-btn"
-            onClick={() => setShowForm(true)}
-          >
-            Create Board
-          </button>
+          {isAuthenticated && (
+            <button
+              type="button"
+              className="create-board-btn"
+              onClick={() => setShowForm(true)}
+            >
+              Create Board
+            </button>
+          )}
         </div>
         <div className="toolbar__right">
           <Search onSearch={setSearchTerm} />
@@ -143,35 +141,14 @@ function HomePage() {
   )
 }
 
-function ProtectedRoute({ children }) {
-  if (!getToken()) {
-    return <Navigate to="/signin" replace />
-  }
-  return children
-}
-
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/signin" element={getToken() ? <Navigate to="/" replace /> : <Login />} />
-        <Route
-          path="/"
-          element={(
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          )}
-        />
-        <Route
-          path="/boards/:id"
-          element={(
-            <ProtectedRoute>
-              <BoardPage />
-            </ProtectedRoute>
-          )}
-        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/boards/:id" element={<BoardPage />} />
       </Routes>
       <footer className="app-footer">
         <span className="app-footer__title">Kudos Board</span>

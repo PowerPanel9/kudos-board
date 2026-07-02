@@ -8,11 +8,12 @@ const {
     updateCard, 
     deleteCard 
 } = require("../Controllers/cardController");
+const { requireAuth } = require("../Middleware/Security");
 
 router.get("/", getAllCards);
 router.get("/:id", getCardById);
-router.post("/", createCard);
-router.put("/:id", updateCard);
-router.delete("/:id", deleteCard);
+router.post("/", requireAuth, createCard);
+router.put("/:id", requireAuth, updateCard);
+router.delete("/:id", requireAuth, deleteCard);
 
 module.exports = router;
