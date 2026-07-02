@@ -133,7 +133,7 @@ function HomePage() {
         </div>
       </div>
 
-      <BoardGrid boards={sortedBoards} onDeleteBoard={handleDelete} />
+      <BoardGrid boards={sortedBoards} onDeleteBoard={handleDelete} onAddBoard={() => setShowForm(true)} />
 
       {showForm && (
         <CreateBoardForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
@@ -172,6 +172,10 @@ function App() {
           )}
         />
       </Routes>
+      <footer className="app-footer">
+        <span className="app-footer__title">Kudos Board</span>
+        <span className="app-footer__team">Power Panel</span>
+      </footer>
     </BrowserRouter>
   )
 }

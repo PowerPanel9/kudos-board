@@ -32,8 +32,6 @@
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: flex-end;
   padding: 12px;
   box-sizing: border-box;
@@ -45,6 +43,14 @@
 .board-card:hover .board-card__overlay,
 .board-card:focus-within .board-card__overlay {
   opacity: 1;
+}
+
+.board-card__actions {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .board-card__delete,
@@ -60,21 +66,22 @@
   transition: transform 0.15s ease, background 0.15s ease;
 }
 
-/* "Delete" sits top-right, like Pinterest's secondary action. */
 .board-card__delete {
-  align-self: flex-end;
-  background: rgba(255, 250, 242, 0.95);
-  color: #b00020;
+  padding: 0.5rem 0.8rem;
+  background: var(--accent);
+  color: #fffaf2;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .board-card__delete:hover {
-  background: #fffdf8;
+  background: #6f472a;
   transform: scale(1.04);
 }
 
-/* "View Board" is the primary action, bottom-right. */
 .board-card__view {
-  align-self: flex-end;
   background: var(--accent);
   color: #fffaf2;
 }
@@ -82,6 +89,10 @@
 .board-card__view:hover {
   filter: brightness(1.08);
   transform: scale(1.04);
+}
+
+.board-card__delete svg {
+  stroke: #fffaf2;
 }
 
 /* Title + category, borderless, just below the image like Pinterest captions. */

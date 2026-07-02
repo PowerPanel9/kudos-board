@@ -11,29 +11,37 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 0.45rem 1rem;
   background: #8b5e3c;
   border-radius: 20px;
   color: #fffaf2;
 }
 
+.board-header > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .board-header h1 {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 1.9rem;
   font-weight: 700;
+  line-height: 1.1;
   color: #fffaf2;
 }
 
 .board-category {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+  margin: 0;
+  font-size: 0.95rem;
   opacity: 0.9;
   color: #fffaf2;
 }
 
 .board-author {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
+  margin: 0;
+  font-size: 0.95rem;
   opacity: 0.8;
   color: #fffaf2;
 }

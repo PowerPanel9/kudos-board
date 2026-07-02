@@ -82,7 +82,7 @@
 
 .header-welcome {
   color: var(--text-h);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
 }
@@ -231,4 +231,26 @@
 .create-board-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.app-footer {
+  margin-top: auto;
+  padding: 18px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--code-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-h);
+}
+
+.app-footer__title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.app-footer__team {
+  font-size: 14px;
+  color: var(--text);
 }

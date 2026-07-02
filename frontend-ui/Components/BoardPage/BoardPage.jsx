@@ -156,6 +156,7 @@ const BoardPage = () => {
                 cards={cards}
                 onDeleteCard={handleDeleteCard}
                 onUpvote={handleUpvote}
+                onAddCard={() => setShowCreateCardForm(true)}
             />
         </div>
     );

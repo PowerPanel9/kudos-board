@@ -89,4 +89,44 @@
   padding: 48px 16px;
   text-align: center;
   color: var(--text);
+  grid-column: 1 / -1;
+}
+
+.board-grid__add-tile {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  border: 2px dashed var(--accent-border);
+  border-radius: 16px;
+  background: var(--code-bg);
+  color: var(--accent);
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.board-grid__add-tile:hover {
+  transform: translateY(-2px);
+  background: #f2e5d7;
+  border-color: var(--accent);
+}
+
+.board-grid--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 20px 20px;
+}
+
+.board-grid--empty .board-grid__empty {
+  padding: 0;
+  text-align: left;
+}
+
+.board-grid--empty .board-grid__add-tile {
+  width: min(220px, 100%);
+  min-height: 160px;
 }

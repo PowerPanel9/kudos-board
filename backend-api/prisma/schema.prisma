@@ -33,7 +33,7 @@ model Card {
 
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @default("")
   email     String   @unique
   username  String   @unique
   password  String
