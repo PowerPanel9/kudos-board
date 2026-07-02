@@ -1,10 +1,10 @@
 .card-tile {
   break-inside: avoid;
   margin-bottom: 1.5rem;
-  background: #1a1a1a;
+  background: #f7ecdf;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(74, 47, 32, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
   cursor: pointer;
@@ -12,7 +12,7 @@
 
 .card-tile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 12px rgba(111, 71, 42, 0.28);
 }
 
 .card-image {
@@ -41,25 +41,25 @@
 }
 
 .card-text-box {
-  background: rgba(26, 26, 26, 0.95);
+  background: rgba(255, 250, 242, 0.96);
   padding: 1rem;
   border-radius: 16px;
   max-width: 90%;
-  border: 1px solid rgba(124, 58, 237, 0.3);
+  border: 1px solid rgba(139, 94, 60, 0.3);
 }
 
 .card-message {
   margin: 0 0 0.5rem 0;
   font-size: 0.95rem;
   line-height: 1.4;
-  color: #ffffff;
+  color: #4a2f20;
   word-wrap: break-word;
 }
 
 .card-author {
   margin: 0;
   font-size: 0.85rem;
-  color: #b8b8b8;
+  color: #7b5a3f;
   font-style: italic;
 }
 
@@ -77,8 +77,8 @@
 
 .upvote-btn {
   padding: 0.5rem 0.8rem;
-  background: #7c3aed;
-  color: white;
+  background: var(--accent);
+  color: #fffaf2;
   border: none;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -88,7 +88,7 @@
 }
 
 .upvote-btn:hover {
-  background: #6d28d9;
+  background: #6f472a;
 }
 
 .delete-btn {
@@ -96,8 +96,8 @@
   bottom: 0.75rem;
   right: 0.75rem;
   padding: 0.5rem 0.8rem;
-  background: #7c3aed;
-  color: white;
+  background: var(--accent);
+  color: #fffaf2;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -114,9 +114,9 @@
 }
 
 .delete-btn:hover {
-  background: #6d28d9;
+  background: #6f472a;
 }
 
 .delete-btn svg {
-  stroke: white;
+  stroke: #fffaf2;
 }

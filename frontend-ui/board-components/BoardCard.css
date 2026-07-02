@@ -37,7 +37,7 @@
   align-items: flex-end;
   padding: 12px;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(74, 47, 32, 0.28);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -63,12 +63,12 @@
 /* "Delete" sits top-right, like Pinterest's secondary action. */
 .board-card__delete {
   align-self: flex-end;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 250, 242, 0.95);
   color: #b00020;
 }
 
 .board-card__delete:hover {
-  background: #fff;
+  background: #fffdf8;
   transform: scale(1.04);
 }
 
@@ -76,7 +76,7 @@
 .board-card__view {
   align-self: flex-end;
   background: var(--accent);
-  color: #fff;
+  color: #fffaf2;
 }
 
 .board-card__view:hover {

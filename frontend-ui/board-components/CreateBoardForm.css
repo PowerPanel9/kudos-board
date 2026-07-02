@@ -3,7 +3,7 @@
 .create-board__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(74, 47, 32, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +98,7 @@
 
 .create-board__btn--submit {
   background: var(--accent);
-  color: #fff;
+  color: #fffaf2;
 }
 
 .create-board__btn--submit:hover {

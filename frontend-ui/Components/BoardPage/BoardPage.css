@@ -1,7 +1,7 @@
 .board-page {
   width: 100%;
   padding: 2rem;
-  background-color: #000000;
+  background-color: var(--bg);
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -12,50 +12,50 @@
   justify-content: space-between;
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
-  background: #7c3aed;
+  background: #8b5e3c;
   border-radius: 20px;
-  color: white;
+  color: #fffaf2;
 }
 
 .board-header h1 {
   margin: 0;
   font-size: 2.5rem;
   font-weight: 700;
-  color: white;
+  color: #fffaf2;
 }
 
 .board-category {
   margin: 0.5rem 0;
   font-size: 1.1rem;
   opacity: 0.9;
-  color: white;
+  color: #fffaf2;
 }
 
 .board-author {
   margin: 0.5rem 0;
   font-size: 0.9rem;
   opacity: 0.8;
-  color: white;
+  color: #fffaf2;
 }
 
 .add-card-btn {
   padding: 1rem 2.5rem;
-  background: #7c3aed;
-  color: white;
+  background: #6f472a;
+  color: #fffaf2;
   border: none;
   border-radius: 30px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 2px 8px rgba(111, 71, 42, 0.3);
   flex-shrink: 0;
 }
 
 .add-card-btn:hover {
   transform: translateY(-2px);
-  background: #6d28d9;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+  background: #5c3b23;
+  box-shadow: 0 4px 12px rgba(92, 59, 35, 0.4);
 }
 
 .add-card-btn:active {

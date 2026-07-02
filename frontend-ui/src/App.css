@@ -145,8 +145,8 @@
 }
 
 .search-bar:focus-within {
-  border-color: rgba(124, 58, 237, 0.5);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 4px var(--accent-bg);
 }
 
 .search-bar__button {
@@ -212,8 +212,8 @@
   font-family: var(--sans);
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
-  background: #7c3aed;
+  color: #fffaf2;
+  background: var(--accent);
   border: none;
   border-radius: 999px;
   padding: 12px 24px;
@@ -224,8 +224,8 @@
 
 .create-board-btn:hover {
   transform: translateY(-2px);
-  background: #6d28d9;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+  background: #6f472a;
+  box-shadow: 0 4px 12px rgba(111, 71, 42, 0.35);
 }
 
 .create-board-btn:focus-visible {
