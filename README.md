@@ -1,12 +1,10 @@
 # kudos-board
 
-:memo: `NOTE` Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (:no_entry_sign: Remove this paragraph before submitting your assignment.)
-
 ## Unit Assignment: Kudos Board
 
 Submitted by: **Zainab Adeola, Ariane Doris Umihire, Ardelia Putridaryana**
 
-Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
+Deployed Application (optional): [Kudos Board Deployed Site](https://kudos-board-ui.onrender.com/)
 
 ### Application Features
 
@@ -147,9 +145,7 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Paste the **shareable link** to your animated app walkthrough below (replace `ADD_LOOM_LINK_HERE`). GitHub markdown won't render an embedded Loom player, so a plain link is what graders will use. Make sure the link is public and playable before submitting. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website. (:no_entry_sign: Remove this paragraph after adding your walkthrough link.)
-
-**Walkthrough video:** [Kudos Board Walkthrough](ADD_LOOM_LINK_HERE)
+**Walkthrough video:** [Kudos Board Walkthrough](https://www.loom.com/share/32db13933c8244689a3fbb94c4736f69)
 
 ### Reflection
 
@@ -163,11 +159,11 @@ If we had more time we would have added the mode switch feature, to allow the us
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+The flow of our presentation was good and we knew what each person wanted to say, but we did run into a couple of hiccups while trying to demo, which took some time.
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+None
 
 ### Shout out
 
