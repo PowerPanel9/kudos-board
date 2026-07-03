@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { clearToken, getDisplayName, getNameFromToken, getToken } from '../src/auth';
+import { useLoginModal } from '../src/LoginModalContext';
 
 const Header = () => {
-    const navigate = useNavigate();
+    const { openLogin } = useLoginModal();
     const isAuthenticated = Boolean(getToken());
     const name = getDisplayName() || getNameFromToken();
 
     const handleLogout = () => {
         clearToken();
-        navigate('/signin');
+        window.location.reload();
     };
 
     return (
@@ -29,7 +29,7 @@ const Header = () => {
                     <button
                         type="button"
                         className="header-signin-link"
-                        onClick={() => navigate('/signin')}
+                        onClick={openLogin}
                     >
                         Sign In
                     </button>

@@ -11,7 +11,7 @@ import './BoardGrid.css'
  *   onDeleteBoard — function: passed through to each BoardCard's onDelete
  *   onAddBoard   — function: opens the create-board form
  */
-function BoardGrid({ boards, onDeleteBoard, onAddBoard, currentUserId }) {
+function BoardGrid({ boards, onDeleteBoard, onAddBoard, currentUserId, isAuthenticated = false }) {
   const hasBoards = Boolean(boards && boards.length > 0)
   return (
     <div className={`board-grid ${hasBoards ? '' : 'board-grid--empty'}`.trim()}>
@@ -25,16 +25,24 @@ function BoardGrid({ boards, onDeleteBoard, onAddBoard, currentUserId }) {
               canDelete={currentUserId != null && board.ownerId === currentUserId}
             />
           ))}
-          <button type="button" className="board-grid__add-tile" onClick={onAddBoard} aria-label="Add board">
-            +
-          </button>
+          {isAuthenticated && (
+            <button type="button" className="board-grid__add-tile" onClick={onAddBoard} aria-label="Add board">
+              +
+            </button>
+          )}
         </>
       ) : (
         <>
-          <p className="board-grid__empty">No boards found. Try another search, or create one below.</p>
-          <button type="button" className="board-grid__add-tile" onClick={onAddBoard} aria-label="Add board">
-            +
-          </button>
+          <p className="board-grid__empty">
+            {isAuthenticated
+              ? 'No boards found. Try another search, or create one below.'
+              : 'No boards found. Try another search.'}
+          </p>
+          {isAuthenticated && (
+            <button type="button" className="board-grid__add-tile" onClick={onAddBoard} aria-label="Add board">
+              +
+            </button>
+          )}
         </>
       )}
     </div>

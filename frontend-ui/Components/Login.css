@@ -1,20 +1,54 @@
-.auth-page {
-  min-height: calc(100svh - 120px);
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(74, 47, 32, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
   padding: 24px;
+  overflow-y: auto;
 }
 
 .auth-card {
+  position: relative;
   width: 100%;
   max-width: 420px;
+  margin: auto;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--code-bg);
   box-shadow: var(--shadow);
   padding: 24px;
   text-align: left;
+  animation: authModalSlideIn 0.3s ease-out;
+}
+
+@keyframes authModalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-h);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
 }
 
 .auth-title {

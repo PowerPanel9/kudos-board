@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../src/config";
 import { setDisplayName, setToken } from "../src/auth";
 import "./Login.css";
 
-function Login() {
-  const navigate = useNavigate();
+function Login({ onClose, onSuccess }) {
   const [mode, setMode] = useState("login");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -70,7 +68,8 @@ function Login() {
 
       setToken(data.token);
       setDisplayName(data.user?.name || data.user?.username || "");
-      navigate("/");
+      if (onSuccess) onSuccess();
+      if (onClose) onClose();
     } catch (requestError) {
       setError("Failed to connect. Please try again.");
     } finally {
@@ -79,8 +78,16 @@ function Login() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="auth-modal-overlay" onClick={onClose}>
+      <div className="auth-card" onClick={(e) => e.stopPropagation()}>
+        <button
+          type="button"
+          className="auth-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
         <h2 className="auth-title">{isLogin ? "Sign In" : "Register"}</h2>
 
         <div className="auth-toggle">

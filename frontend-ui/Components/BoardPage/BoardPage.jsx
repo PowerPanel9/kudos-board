@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CardGrid from '../CardGrid/CardGrid';
 import CreateCardForm from '../CreateCardForm/CreateCardForm';
 import { API_BASE_URL } from '../../src/config';
-import { clearToken, getAuthHeaders } from '../../src/auth';
+import { clearToken, getAuthHeaders, getToken } from '../../src/auth';
+import { useLoginModal } from '../../src/LoginModalContext';
 import './BoardPage.css';
 
 const BoardPage = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
+    const { openLogin } = useLoginModal();
     const [board, setBoard] = useState(null);
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showCreateCardForm, setShowCreateCardForm] = useState(false);
+    const isAuthenticated = Boolean(getToken());
 
     useEffect(() => {
         const fetchBoardAndCards = async () => {
@@ -25,7 +27,7 @@ const BoardPage = () => {
                 });
                 if (boardResponse.status === 401) {
                     clearToken();
-                    navigate('/signin');
+                    openLogin();
                     return;
                 }
                 const boardData = await boardResponse.json();
@@ -38,7 +40,7 @@ const BoardPage = () => {
                 });
                 if (cardsResponse.status === 401) {
                     clearToken();
-                    navigate('/signin');
+                    openLogin();
                     return;
                 }
                 const cardsData = await cardsResponse.json();
@@ -51,7 +53,7 @@ const BoardPage = () => {
             }
         };
         fetchBoardAndCards();
-    }, [id, navigate]);
+    }, [id]);
 
     const handleDeleteCard = async (cardId) => {
         try {
@@ -63,7 +65,7 @@ const BoardPage = () => {
             });
             if (response.status === 401) {
                 clearToken();
-                navigate('/signin');
+                openLogin();
                 return;
             }
             setCards(cards.filter(card => card.id !== cardId));
@@ -82,7 +84,7 @@ const BoardPage = () => {
             });
             if (response.status === 401) {
                 clearToken();
-                navigate('/signin');
+                openLogin();
                 return;
             }
             const updatedCard = await response.json();
@@ -106,7 +108,7 @@ const BoardPage = () => {
             });
             if (response.status === 401) {
                 clearToken();
-                navigate('/signin');
+                openLogin();
                 return;
             }
             const newCard = await response.json();
@@ -136,15 +138,17 @@ const BoardPage = () => {
                     <p className="board-category">{board.category}</p>
                     {board.author && <p className="board-author">Created by: {board.author}</p>}
                 </div>
-                <button
-                    className="add-card-btn"
-                    onClick={() => setShowCreateCardForm(!showCreateCardForm)}
-                >
-                    {showCreateCardForm ? 'Cancel' : 'Add Card'}
-                </button>
+                {isAuthenticated && (
+                    <button
+                        className="add-card-btn"
+                        onClick={() => setShowCreateCardForm(!showCreateCardForm)}
+                    >
+                        {showCreateCardForm ? 'Cancel' : 'Add Card'}
+                    </button>
+                )}
             </div>
 
-            {showCreateCardForm && (
+            {isAuthenticated && showCreateCardForm && (
                 <CreateCardForm
                     boardId={id}
                     onSubmit={handleSubmitCard}
@@ -157,6 +161,7 @@ const BoardPage = () => {
                 onDeleteCard={handleDeleteCard}
                 onUpvote={handleUpvote}
                 onAddCard={() => setShowCreateCardForm(true)}
+                isAuthenticated={isAuthenticated}
             />
         </div>
     );

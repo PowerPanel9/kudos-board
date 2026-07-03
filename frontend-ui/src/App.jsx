@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import BoardGrid from '../board-components/BoardGrid'
 import CreateBoardForm from '../board-components/CreateBoardForm'
 import BoardPage from '../Components/BoardPage/BoardPage'
@@ -7,12 +7,13 @@ import Filter from '../Components/Filter';
 import Header from '../Components/Header';
 import Search from '../Components/Search';
 import Login from '../Components/Login';
+import { LoginModalContext, useLoginModal } from './LoginModalContext'
 import { API_BASE_URL } from './config'
 import { clearToken, getAuthHeaders, getToken, getUserIdFromToken } from './auth'
 import './App.css'
 
 function HomePage() {
-  const navigate = useNavigate()
+  const { openLogin } = useLoginModal()
   const [boards, setBoards] = useState([])
   const [showForm, setShowForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -49,7 +50,7 @@ function HomePage() {
       })
       if (response.status === 401) {
         clearToken()
-        navigate('/signin')
+        openLogin()
         return
       }
       if (response.ok) {
@@ -72,7 +73,7 @@ function HomePage() {
       })
       if (response.status === 401) {
         clearToken()
-        navigate('/signin')
+        openLogin()
         return
       }
       if (response.ok) {
@@ -132,6 +133,7 @@ function HomePage() {
         onDeleteBoard={handleDelete}
         onAddBoard={() => setShowForm(true)}
         currentUserId={currentUserId}
+        isAuthenticated={isAuthenticated}
       />
 
       {showForm && (
@@ -142,18 +144,33 @@ function HomePage() {
 }
 
 function App() {
+  const [showLogin, setShowLogin] = useState(false)
+
+  const openLogin = () => setShowLogin(true)
+  const closeLogin = () => setShowLogin(false)
+
+  // Re-render the app after a successful login so auth-gated UI updates.
+  const handleLoginSuccess = () => {
+    setShowLogin(false)
+    window.location.reload()
+  }
+
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/signin" element={getToken() ? <Navigate to="/" replace /> : <Login />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/boards/:id" element={<BoardPage />} />
-      </Routes>
-      <footer className="app-footer">
-        <span className="app-footer__title">Kudos Board</span>
-        <span className="app-footer__team">Power Panel</span>
-      </footer>
+      <LoginModalContext.Provider value={{ openLogin }}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/boards/:id" element={<BoardPage />} />
+        </Routes>
+        <footer className="app-footer">
+          <span className="app-footer__title">Kudos Board</span>
+          <span className="app-footer__team">Power Panel</span>
+        </footer>
+        {showLogin && (
+          <Login onClose={closeLogin} onSuccess={handleLoginSuccess} />
+        )}
+      </LoginModalContext.Provider>
     </BrowserRouter>
   )
 }
